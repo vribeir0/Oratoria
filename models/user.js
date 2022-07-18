@@ -1,5 +1,5 @@
 class User {
-    constructor(id, firstName, lastName, email, password, birthday) {
+    constructor(id,firstName, lastName, email, password, birthday) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -8,3 +8,5 @@ class User {
         this.birthday = birthday;
     }
 }
+
+module.exports = User;

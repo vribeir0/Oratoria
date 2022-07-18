@@ -1,9 +1,10 @@
 'use strict'
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require('./config');
-const userRoutes = require('./routes/user routes');
+const userRoutes = require('./routes/user-routes');
 
 const app = express();
 
