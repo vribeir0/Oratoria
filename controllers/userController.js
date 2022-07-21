@@ -1,14 +1,14 @@
-'use strict'
+
 
 const { restart } = require('nodemon');
-const firebase = require('../db');
+
 const User = require('../models/user');
-const firestore = firebase.firestore();
+const { db } = require("../config/admin");
 
 const addUser = async (req, res, next) => {
     try {
         const data = req.body;
-        await firestore.collection('users').doc().set(data);
+        await db.collection('users').doc().set(data);
         res.status(201).send('Registered successfully');
 
     } catch (error) {
@@ -18,7 +18,7 @@ const addUser = async (req, res, next) => {
 
 const getAllUsers = async (req, res, next) => {
     try {
-        const users = await firestore.collection('users');
+        const users = await db.collection('users');
         const data = await users.get();
         const usersArray = [];
 
@@ -46,7 +46,7 @@ const getAllUsers = async (req, res, next) => {
 const getUser = async(req,res,next) => {
     try {
         const id = req.params.id;
-        const user = await firestore.collection('users').doc(id);
+        const user = await db.collection('users').doc(id);
         const data = await user.get();
 
         if(!data.exists) {
@@ -63,7 +63,7 @@ const getUser = async(req,res,next) => {
 const updateUser = async(req,res,next) => {
     try {
         const id = req.params.id;
-        const user = await firestore.collection('users').doc(id);
+        const user = await db.collection('users').doc(id);
         const data = req.body;
 
         await user.update(data);
@@ -77,7 +77,7 @@ const deleteUser = async(req,res,next) => {
     try {
         const id = req.params.id;
 
-        await firestore.collection('users').doc(id).delete();
+        await db.collection('users').doc(id).delete();
         res.send('User deleted successfully');
     } catch (error) {
         res.status(400).send(error.message);
